@@ -1,0 +1,29 @@
+h1 {
+    font-family: "arial";
+    font-weight: 800;
+    font-size: 40px;
+    text-align: center;
+    color: rgb(22, 22, 43);
+}
+
+p {
+    font-family: "arial";
+    font-weight:300;
+    font-size:18px;
+    text-align: center;
+    margin: auto;
+}
+
+span.time{
+    font-family: "arial";
+    font-weight:300;
+    font-size:18px;
+    text-align: center;
+    margin: auto;
+
+}
+
+.map{
+    width: auto;
+    height: 7600px;
+}
