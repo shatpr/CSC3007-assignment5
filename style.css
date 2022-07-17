@@ -23,7 +23,7 @@ span.time{
 
 }
 
-.map{
+#map{
     width: auto;
-    height: 7600px;
+    height: 90vh;
 }

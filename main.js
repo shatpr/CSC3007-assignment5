@@ -1,6 +1,6 @@
 
 let api = "https://api.data.gov.sg/v1/environment/psi";
-   
+
      // Load external data
     fetch(api)
     .then(response => response.json()) 
@@ -12,17 +12,19 @@ let api = "https://api.data.gov.sg/v1/environment/psi";
     regionData = data.region_metadata
     updatedTimestamp = console.log(new Date(data.items[0].update_timestamp).toLocaleString())
 
-    document.getElementById("time").innerHTML = updatedTimestamp;
+    // document.getElementById("time").innerHTML = updatedTimestamp;
 
     // Map
-    let tiles = new L.tileLayer('https://maps-{s}.onemap.sg/v3/Grey/{z}/{x}/{y}.png', {
+
+    let tiles = new L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {
         detectRetina: true,
         maxZoom: 18,
         minZoom: 11,
         //Do not remove this attribution
         attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;">' +
             'New OneMap | Map data © contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
-    });
+    }); 
+    let center = L.bounds([1.56073, 104.11475], [1.16, 103.502]).getCenter()
 
     // Add MaxBound
     let map = new L.Map("map", {
@@ -30,7 +32,10 @@ let api = "https://api.data.gov.sg/v1/environment/psi";
         zoom: 11,
         maxBounds: L.latLngBounds(L.latLng(1.1, 103.5), L.latLng(1.5, 104.3))
         })
-        .addLayer(tiles);
+        .addLayer(tiles)
+        .setView([center.x, center.y], 12)
+        .setMaxBounds([[1.56073, 104.1147], [1.16, 103.502]]);
+
     
         let colorScale = d3.scaleThreshold()
         .domain([50, 100, 200, 300, 400])
@@ -40,22 +45,23 @@ let api = "https://api.data.gov.sg/v1/environment/psi";
         .domain([50, 100, 200, 300, 400])
         .range(["Good", "Moderate", "Unhealthy", "Very Unhealthy", "Hazardous"]);
     
-    for(let i = 0; i < regionData.lenght; i++) {
+    for(let i = 0; i < regionData.length; i++) {
         labelLocation = regionData[i].label_location;
         region = regionData[i].name;
-
-        let circle =  L.circle([regionData.latitude, regionData.longtitude], { 
-            radius: regionData[region] * 1.5,
+        
+        let circle =  L.circleMarker([labelLocation.latitude, labelLocation.longitude], { 
+            radius: labelLocation[region] * 1.5,
             opacity: .9,                            
             fillOpacity: 0.3,
-            fillColor: colorScale(regionData[region]),
-            color: colorScale(regionData[region]),
+            fillColor: colorScale(labelLocation[region]),
+            color: colorScale(labelLocation[region]),
 
         });
+        
 
-        let marker = L.marker([regionData.latitude, regionData.longtitude], { 
+        let marker = L.marker([labelLocation.latitude, labelLocation.longitude], { 
             icon: new L.DivIcon({
-            html: "<br>" + regionData[region] + "</b>",
+            html: "<br>" + labelLocation[region] + "</b>",
             className: 'circle-with-txt'
              })
 
@@ -66,5 +72,6 @@ let api = "https://api.data.gov.sg/v1/environment/psi";
     }; 
     
     })
+    
    
 
