@@ -11,19 +11,47 @@ p {
     font-weight:300;
     font-size:18px;
     text-align: center;
+    font-weight: bolder;
     margin: auto;
 }
 
-span.time{
+.lastupdated{
     font-family: "arial";
-    font-weight:300;
-    font-size:18px;
-    text-align: center;
-    margin: auto;
-
+    font-weight: bolder;
+    font-size:18px; 
 }
 
 #map{
     width: auto;
     height: 90vh;
+}
+
+.text-labels {
+    font-size: 2em;
+    color: black;
+    font-weight: bold;
+    /* Use color, background, set margins for offset, etc */
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.legend {
+    line-height: 18px;
+    color: black;
+}   
+
+.legend p {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+    border-radius: 50%;
 }
